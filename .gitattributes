@@ -1,0 +1,1 @@
+Minecraft-Star-Launcher-Windows-portable-*.zip filter=lfs diff=lfs merge=lfs -text
