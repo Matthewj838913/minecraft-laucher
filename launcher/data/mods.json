@@ -1,0 +1,38 @@
+{
+  "modpacks": {
+    "lunar": {
+      "name": "Lunar Client Modpack",
+      "source": "https://api.lunarclient.com/version/1.21/manifest.json",
+      "minecraftVersion": "1.21",
+      "loader": "fabric",
+      "files": [
+        "https://download.lunarclient.com/files/lunar-1.21-fabric.jar",
+        "https://modrinth.com/mod/fabric-api/versions/latest"
+      ],
+      "size": "150MB"
+    },
+    "badlion": {
+      "name": "Badlion Client Modpack",
+      "source": "https://cdn.badlion.net/Badlion Client/3.5/Badlion%20Client%203.5.exe",
+      "minecraftVersion": "1.21",
+      "loader": "forge",
+      "files": [],
+      "size": "200MB",
+      "note": "Download and extract manually"
+    },
+    "feather": {
+      "name": "Feather Client Modpack",
+      "source": "https://feathermc.com/download",
+      "minecraftVersion": "1.21",
+      "loader": "fabric",
+      "files": [],
+      "size": "100MB"
+    }
+  },
+  "repositories": [
+    "https://modrinth.com",
+    "https://curseforge.com",
+    "https://lunarclient.com"
+  ]
+}
+
