@@ -1,0 +1,21 @@
+{
+  "modpacks": {
+    "lunar": {
+      "name": "Lunar Client Modpack",
+      "files": [
+        "https://edge.forgecdn.net/files/3549/7/lunarclient-1.21.jar",
+        "https://modrinth.com/mod/fabric-api/versions/l-latest/1.21-fabric.jar"
+      ]
+    },
+    "badlion": {
+      "name": "Badlion Client Modpack",
+      "files": [
+        "https://cdn.badlion.net/client/Badlion%20Client%201.21.jar"
+      ]
+    },
+    "vanilla": {
+      "name": "Vanilla Fabric",
+      "files": ["https://modrinth.com/mod/fabric-api/versions/l-latest/1.21-fabric.jar"]
+    }
+  }
+}
