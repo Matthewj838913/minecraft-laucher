@@ -1,38 +1,12 @@
-# Minecraft Star Launcher TODO
+# Task: Create Download Link for Launcher (Approved Option 2)
 
-## Working Directory Changes Plan (Approved - In Progress)
-
-### Step 1: Create Missing Directories [x]
-- backend/
-- launcher/assets/
-- launcher/servers/
-- launcher/website-dist/
-- launcher/data/
-
-### Step 2: Initialize Backend [x]
-- Create backend/package.json
-- Create backend/server.js (Express API)
-
-### Step 3: Update Website Build [Skipped - already targets launcher/website-dist/]
-- Edit website/package.json build script to target launcher/website-dist/
-
-### Step 4: Organize Launcher Data [x]
-- Move launcher/mods.json → launcher/data/mods.json
-- Create launcher/assets/icon.png (placeholder)
-
-### Step 5: Update Root Configs/Docs [x]
-- Edit root package.json (postinstall)
-- Edit README.md (add backend instructions)
-- Edit .gitignore (add new dirs)
-
-### Step 6: Test Changes [Partial - npm install running; website deps need retry]
-- npm install
-- cd website && npm run build:launcher
-- npm run dev
-
-### Step 7: Git Commit [ ]
-- git add .
-- git commit -m \"Restructure working dir: launcher/website/backend\"
-
-Track by marking [x] when complete.
-
+## Steps:
+- [x] Step 1: Fix website/src/App.js syntax/build error (make static landing page with download button)
+- [ ] Step 1.5: Build website (`cd website && npm run build:launcher`) → populate launcher/website-dist/
+- [x] Step 2: Populate launcher/mods.json with sample modpacks
+- [ ] Step 3: Re-build launcher (`npm run build`) for latest
+- [ ] Step 4: Update README.md with download section
+- [ ] Step 5: Prepare Git branch/commit/push
+- [ ] Step 6: Install gh CLI if needed, create `blackboxai/download-link` branch release with AppImage
+- [ ] Step 7: Update website/README with public GH release link
+- [ ] Complete: Start backend, test localhost:3001 download page + AppImage

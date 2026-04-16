@@ -8,7 +8,7 @@
     "dev": "electron . --dev",
     "build": "electron-builder",
     "backend": "cd backend && npm start",
-    "postinstall": "cd website && npm install && cd backend && npm install"
+"postinstall":"cd website && npm i && cd ../backend && npm i"
   },
   "build": {
     "appId": "com.minecraftstar.launcher",
