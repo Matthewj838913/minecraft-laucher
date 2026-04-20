@@ -1,6 +1,6 @@
 {
   "name": "minecraft-star-launcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Star-inspired Minecraft launcher with mods, servers, offline/cracked support",
   "main": "launcher/main.js",
 "scripts": {

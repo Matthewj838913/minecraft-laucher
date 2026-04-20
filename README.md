@@ -16,14 +16,24 @@ A cosmic, star-inspired Minecraft launcher supporting **offline, online, and cra
 - **Website**: React.
 - Minecraft Java Edition (bundled Java check).
 
-## 📦 Quick Start
+## 📥 Downloads (v1.0.1)
+Latest release: [GitHub Releases](https://github.com/YOUR_USERNAME/minecraft-star-launcher/releases/latest)
+
+- **Windows**: Minecraft Star Launcher Setup 1.0.1.exe (NSIS installer)
+- **Linux**: Minecraft Star Launcher-1.0.1.AppImage (executable)
+- **macOS**: .dmg (coming soon)
+
+Run AppImage: `chmod +x Minecraft\\ Star\\ Launcher-1.0.1.AppImage && ./Minecraft\\ Star\\ Launcher-1.0.1.AppImage`
+Verify: `npm run start` (dev)
+
+## 🛠️ Quick Start (Source)
 1. Clone repo: `git clone <repo>`
 2. `cd minecraft-launcher`
 3. `npm install` (runs postinstall for website/backend)
 4. Backend: `npm run backend` (optional API)
 5. Website: `cd website && npm run build:launcher`
 6. Launcher: `npm start` (dev)
-7. Build app: `npm run build`
+7. Build: `npm run build`
 
 ## 🚀 Roadmap
 See [TODO.md](./TODO.md)
