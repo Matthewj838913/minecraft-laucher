@@ -16,28 +16,29 @@ A cosmic, star-inspired Minecraft launcher supporting **offline, online, and cra
 - **Website**: React.
 - Minecraft Java Edition (bundled Java check).
 
-## 📥 Downloads (v1.0.1)
-Latest release: [GitHub Releases](https://github.com/YOUR_USERNAME/minecraft-star-launcher/releases/latest)
+## 📥 Downloads (v1.0.2)
+Latest release: [GitHub Releases](https://github.com/Matthewj838913/minecraft-laucher/releases/latest)
 
-- **Windows**: Minecraft Star Launcher Setup 1.0.1.exe (NSIS installer)
-- **Linux**: Minecraft Star Launcher-1.0.1.AppImage (executable)
+- **Windows**: [Minecraft-Star-Launcher-Windows-portable-1.0.2.zip](https://github.com/Matthewj838913/minecraft-laucher/releases/download/v1.0.2/Minecraft-Star-Launcher-Windows-portable-1.0.2.zip) (Portable .exe - extract & run)
+  - Double-click `win-unpacked/Minecraft Star Launcher.exe` to launch.
+  - NSIS installer available on Windows build.
+- **Linux**: [Minecraft Star Launcher-1.0.1.AppImage](https://github.com/Matthewj838913/minecraft-laucher/releases/download/v1.0.1/Minecraft-Star-Launcher-1.0.1.AppImage)
 - **macOS**: .dmg (coming soon)
 
-Run AppImage: `chmod +x Minecraft\\ Star\\ Launcher-1.0.1.AppImage && ./Minecraft\\ Star\\ Launcher-1.0.1.AppImage`
-Verify: `npm run start` (dev)
+**Linux Run**: `chmod +x 'Minecraft Star Launcher-1.0.1.AppImage' && ./'Minecraft Star Launcher-1.0.1.AppImage'`
+**Dev Verify**: `npm run start`
 
 ## 🛠️ Quick Start (Source)
-1. Clone repo: `git clone <repo>`
-2. `cd minecraft-launcher`
+1. Clone repo: `git clone https://github.com/Matthewj838913/minecraft-laucher`
+2. `cd minecraft-laucher`
 3. `npm install` (runs postinstall for website/backend)
-4. Backend: `npm run backend` (optional API)
-5. Website: `cd website && npm run build:launcher`
+4. Backend: `npm run backend` (optional API, localhost:3001)
+5. Website: `cd website && npm run build:launcher` (if needed)
 6. Launcher: `npm start` (dev)
 7. Build: `npm run build`
 
 ## 🚀 Roadmap
-See [TODO.md](./TODO.md)
+See [TODO.md](./TODO.md) & [TODO-RELEASE.md](./TODO-RELEASE.md)
 
 ## 📄 License
 MIT
-
