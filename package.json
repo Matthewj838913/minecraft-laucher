@@ -1,0 +1,50 @@
+{
+  "name": "minecraft-star-launcher",
+  "version": "1.0.2",
+  "description": "Star-inspired Minecraft launcher with mods, servers, offline/cracked support",
+  "main": "launcher/main.js",
+  "author": "Minecraft Star Launcher Team",
+"scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "backend": "cd backend && npm start",
+"postinstall":"cd website && npm i && cd ../backend && npm i"
+  },
+  "build": {
+    "appId": "com.minecraftstar.launcher",
+    "productName": "Minecraft Star Launcher",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "launcher/**/*",
+"backend/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "mac": {
+      "category": "public.app-category.games"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    },
+    "publish": ["github"]
+  },
+  "devDependencies": {
+    "electron": "^41.2.0",
+    "electron-builder": "^26.8.1"
+  },
+  "dependencies": {
+    "axios": "^1.15.0",
+    "child_process": "^1.0.2",
+    "express": "^4.19.2",
+    "fs-extra": "^11.3.4",
+    "particles.js": "^2.0.0",
+    "sqlite3": "^5.1.7",
+    "tailwindcss": "^3.4.4"
+  }
+}

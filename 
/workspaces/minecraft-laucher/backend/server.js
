@@ -1,0 +1,36 @@
+const express = require('express');
+const cors = require('cors');
+const path = require('path');
+const fs = require('fs-extra');
+
+const app = express();
+const PORT = 3001;
+
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, '../website/build'))); // Serve website in prod?
+
+// API Routes
+app.get('/api/mods', (req, res) => {
+  const modsData = require('../launcher/data/mods.json');
+  res.json(modsData);
+});
+
+app.post('/api/auth/login', (req, res) => {
+  const { mode, username } = req.body;
+  // TODO: Real auth logic
+  res.json({ success: true, profile: { name: username, uuid: `${mode}-${username}`, token: mode === 'online' ? 'token' : null } });
+});
+
+app.post('/api/mods/install', async (req, res) => {
+  // Mirror main.js logic
+  res.json({ success: true });
+});
+
+app.post('/api/servers/create', (req, res) => {
+  res.json({ success: true, port: 25565 });
+});
+
+app.listen(PORT, () => {
+  console.log(`Backend running on http://localhost:${PORT}`);
+});
