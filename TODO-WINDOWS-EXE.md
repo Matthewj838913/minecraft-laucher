@@ -10,10 +10,10 @@ Version target: 1.0.2 (increment from 1.0.1)
 - [x] Step 4: Update package.json (author, publish, version 1.0.2)
 
 - [x] Step 5: Update README.md (Windows .exe instructions)
-- [ ] Step 6: Git branch for release
-- [ ] Step 7: GH release v1.0.2 with unpacked .exe zip
-- [ ] Step 8: Update TODOs
-- [ ] Step 9: Final verification
+- [x] Step 6: Git branch for release (pushed to blackboxai/v1.0.1-release)
+- [x] Step 7: GH release v1.0.2 with unpacked .exe zip
+- [x] Step 8: Update TODOs
+- [x] Step 9: Final verification
 
-**Current Status**: .exe built (unpacked). Ready for docs & release. Note: Full NSIS requires wine32 install or Windows build.
+**Current Status**: ✅ COMPLETE. Windows portable .exe released at https://github.com/Matthewj838913/minecraft-laucher/releases/tag/v1.0.2
 

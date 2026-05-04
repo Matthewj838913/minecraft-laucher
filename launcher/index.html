@@ -1,12 +1,117 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Minecraft Star Launcher</title>
-  <link rel="stylesheet" href="./website-dist/index.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
-<body>
-  <div id="root"></div>
-  <script src="./website-dist/index.js"></script>
+<body class="bg-[#0a0a1a] text-white min-h-screen overflow-hidden">
+  <div id="particles-js" class="absolute inset-0 z-0"></div>
+
+  <div class="relative z-10 flex flex-col items-center justify-center min-h-screen p-6">
+    <div class="bg-white/10 backdrop-blur-xl rounded-2xl p-8 w-full max-w-md shadow-glow border border-white/10">
+      <h1 class="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
+        Star Launcher
+      </h1>
+      <p class="text-center text-white/60 text-sm mb-6">Choose your login method</p>
+
+      <!-- Auth Tabs -->
+      <div class="flex mb-6 bg-black/30 rounded-xl p-1">
+        <button id="tab-microsoft" class="auth-tab flex-1 py-2 rounded-lg text-sm font-medium transition-all bg-white/20 text-white">Microsoft</button>
+        <button id="tab-offline" class="auth-tab flex-1 py-2 rounded-lg text-sm font-medium transition-all text-white/60 hover:text-white">Offline</button>
+        <button id="tab-cracked" class="auth-tab flex-1 py-2 rounded-lg text-sm font-medium transition-all text-white/60 hover:text-white">Cracked</button>
+      </div>
+
+      <!-- Microsoft Login -->
+      <div id="panel-microsoft" class="auth-panel">
+        <button id="msLoginBtn" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 py-3 rounded-xl font-bold transition-all transform hover:scale-[1.02] shadow-lg flex items-center justify-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M0 0h9.5v9.5H0zM10.5 0H20v9.5h-9.5zM0 10.5h9.5V20H0zM10.5 10.5H20V20h-9.5z"/></svg>
+          Login with Microsoft
+        </button>
+        <p class="text-xs text-white/40 text-center mt-3">Requires a Microsoft account that owns Minecraft</p>
+      </div>
+
+      <!-- Offline Login -->
+      <div id="panel-offline" class="auth-panel hidden">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-white/70 mb-1">Username</label>
+            <input id="offlineUsername" type="text" placeholder="Steve" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-white/30 focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all">
+          </div>
+          <button id="offlineLoginBtn" class="w-full bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 py-3 rounded-xl font-bold transition-all transform hover:scale-[1.02] shadow-lg">
+            Play Offline
+          </button>
+        </div>
+      </div>
+
+      <!-- Cracked Login -->
+      <div id="panel-cracked" class="auth-panel hidden">
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-white/70 mb-1">Username</label>
+            <input id="crackedUsername" type="text" placeholder="Steve" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-white/70 mb-1">Password (optional)</label>
+            <input id="crackedPassword" type="password" placeholder="••••••" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-white/30 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/50 transition-all">
+          </div>
+          <button id="crackedLoginBtn" class="w-full bg-gradient-to-r from-purple-600 to-pink-700 hover:from-purple-500 hover:to-pink-600 py-3 rounded-xl font-bold transition-all transform hover:scale-[1.02] shadow-lg">
+            Login (Cracked)
+          </button>
+        </div>
+      </div>
+
+<!-- Profile Display -->
+      <div id="profileDisplay" class="hidden mt-6 pt-6 border-t border-white/10">
+        <div class="flex items-center gap-3">
+          <div id="profileAvatar" class="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-xl font-bold text-white shadow-lg">
+            ?
+          </div>
+          <div class="flex-1 min-w-0">
+            <h3 id="profileName" class="font-bold text-white truncate">Player</h3>
+            <p id="profileType" class="text-xs text-white/50">Not logged in</p>
+          </div>
+          <button id="logoutBtn" class="text-xs text-red-400 hover:text-red-300 transition-colors px-2 py-1 rounded hover:bg-red-500/10">
+            Logout
+          </button>
+        </div>
+        <div class="mt-3 text-xs text-white/40 font-mono break-all" id="profileUuid"></div>
+      </div>
+
+      <!-- Install Minecraft Button -->
+      <button id="installMcBtn" class="w-full mt-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 py-2 rounded-xl font-bold transition-all transform hover:scale-[1.02] shadow-lg text-sm">
+        Install Minecraft 1.21
+      </button>
+
+<!-- Play Button -->
+      <button id="playBtn" disabled class="w-full mt-6 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 py-4 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.02] shadow-2xl">
+        Play Minecraft
+      </button>
+      <p id="mcStatus" class="text-xs text-center mt-2 text-white/40"></p>
+
+      <!-- Mods Section -->
+      <div class="mt-6 pt-6 border-t border-white/10">
+        <h3 class="text-sm font-bold text-white/70 mb-3">Quick Mods</h3>
+        <div class="flex gap-2">
+          <button class="mod-btn flex-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 text-sm transition-all" data-mod="lunar">Lunar</button>
+          <button class="mod-btn flex-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 text-sm transition-all" data-mod="badlion">Badlion</button>
+        </div>
+        <p id="modStatus" class="text-xs text-center mt-2 text-white/40"></p>
+      </div>
+
+      <!-- Server Section -->
+      <div class="mt-4 pt-4 border-t border-white/10">
+        <button id="newServer" class="w-full bg-white/5 hover:bg-white/10 border border-white/10 rounded-lg py-2 text-sm transition-all text-white/70 hover:text-white">
+          + Create Local Server
+        </button>
+        <p id="serverStatus" class="text-xs text-center mt-2 text-white/40"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="./renderer.js"></script>
 </body>
 </html>
+

@@ -1,7 +1,12 @@
-# Build .exe Steps
+# v1.0.3 Release Progress
 
-TODO:
-- [x] Step 1: Install dependencies (`npm install`) ✅
-- [x] Step 2: Run build (`npm run build` + `npx electron-builder --win`) ⏳ in progress (packaging win32 x64)
-- [x] Step 3: Verify dist/ contents (will run post-build)
-- [ ] Step 4: Complete
+v1.0.3 versions updated, docs prepared. See [TODO-RELEASE-v1.0.3.md](./TODO-RELEASE-v1.0.3.md)
+
+Prior auth complete:
+# Auth Implementation Progress
+
+- [x] 1. Read all relevant files
+- [x] 2. Create plan
+- [x] 3. Rewrite `launcher/main.js` — real Microsoft OAuth, offline UUID, cracked logic, launch-game, install-mods, create-server
+- [x] 4. Update `backend/server.js` — support three auth modes
+- [x] 5. Implementation complete
