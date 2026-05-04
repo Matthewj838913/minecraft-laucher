@@ -4,6 +4,7 @@ const { electronAPI } = window;
 let currentProfile = null;
 let minecraftInstalled = false;
 let installedVersions = [];
+let availableVersions = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
   // Check Minecraft installation status
@@ -18,6 +19,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   } catch (e) {
     console.log('Could not check Minecraft status');
   }
+
+  // Load available versions
+  await loadAvailableVersions();
 
   // Particles.js starry background
   if (typeof particlesJS !== 'undefined') {
@@ -159,38 +163,108 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Install Minecraft button handler
   async function handleInstallMinecraft() {
     const installBtn = document.getElementById('installMcBtn');
+    const versionSelect = document.getElementById('versionSelect');
     const statusEl = document.getElementById('mcStatus');
+    const versionStatusEl = document.getElementById('versionStatus');
     
-    if (installBtn) {
-      installBtn.disabled = true;
-      installBtn.textContent = 'Installing...';
-      
-      try {
-        const result = await electronAPI.installMinecraft('1.21');
-        if (result.success) {
-          statusEl.textContent = result.message;
-          statusEl.className = 'text-xs text-center mt-2 text-green-400';
-          minecraftInstalled = true;
-          
-          // Re-check versions
-          const mcStatus = await electronAPI.checkMinecraft();
-          installedVersions = mcStatus.versions || [];
-          
-          // Enable play button if profile exists
-          if (currentProfile) {
-            playBtn.disabled = false;
-          }
-        } else {
-          statusEl.textContent = 'Error: ' + result.error;
-          statusEl.className = 'text-xs text-center mt-2 text-red-400';
+    const version = versionSelect.value;
+    if (!version) {
+      statusEl.textContent = 'Please select a version first';
+      statusEl.className = 'text-xs text-center mt-2 text-red-400';
+      return;
+    }
+    
+    installBtn.disabled = true;
+    installBtn.textContent = 'Installing...';
+    
+    try {
+      const result = await electronAPI.installMinecraft(version);
+      if (result.success) {
+        statusEl.textContent = result.message;
+        statusEl.className = 'text-xs text-center mt-2 text-green-400';
+        minecraftInstalled = true;
+        
+        // Re-check installed versions
+        const mcStatus = await electronAPI.checkMinecraft();
+        installedVersions = mcStatus.versions || [];
+        
+        versionStatusEl.textContent = `${version} installed! ✓`;
+        versionStatusEl.className = 'text-xs text-center mt-1 text-green-400';
+        
+        // Enable play button if profile exists
+        if (currentProfile) {
+          playBtn.disabled = false;
         }
-      } catch (err) {
-        statusEl.textContent = 'Error: ' + err.message;
+      } else {
+        statusEl.textContent = 'Error: ' + result.error;
         statusEl.className = 'text-xs text-center mt-2 text-red-400';
-      } finally {
-        installBtn.disabled = false;
-        installBtn.textContent = 'Install Minecraft 1.21';
       }
+    } catch (err) {
+      statusEl.textContent = 'Error: ' + err.message;
+      statusEl.className = 'text-xs text-center mt-2 text-red-400';
+    } finally {
+      installBtn.disabled = false;
+      installBtn.textContent = 'Install Selected Version';
+    }
+  }
+
+  async function loadAvailableVersions() {
+    const versionSelect = document.getElementById('versionSelect');
+    const versionStatusEl = document.getElementById('versionStatus');
+    
+    try {
+      const result = await electronAPI.getAvailableVersions();
+      if (result.success) {
+        availableVersions = [...(result.releases || []), ...(result.snapshots || [])];
+        
+        // Populate dropdown with releases first, then snapshots
+        versionSelect.innerHTML = '';
+        
+        // Releases
+        if (result.releases && result.releases.length > 0) {
+          const releaseOptgroup = document.createElement('optgroup');
+          releaseOptgroup.label = 'Releases (' + result.releases.length + ')';
+          result.releases.forEach(v => {
+            const option = document.createElement('option');
+            option.value = v.id;
+            option.textContent = `${v.id} (release)`;
+            releaseOptgroup.appendChild(option);
+          });
+          versionSelect.appendChild(releaseOptgroup);
+        }
+        
+        // Snapshots
+        if (result.snapshots && result.snapshots.length > 0) {
+          const snapshotOptgroup = document.createElement('optgroup');
+          snapshotOptgroup.label = 'Snapshots (' + result.snapshots.length + ')';
+          result.snapshots.forEach(v => {
+            const option = document.createElement('option');
+            option.value = v.id;
+            option.textContent = `${v.id} (snapshot)`;
+            snapshotOptgroup.appendChild(option);
+          });
+          versionSelect.appendChild(snapshotOptgroup);
+        }
+        
+        if (result.latest) {
+          versionSelect.value = result.latest;
+        }
+        
+        versionStatusEl.textContent = `${availableVersions.length} versions loaded`;
+        versionStatusEl.className = 'text-xs text-center mt-1 text-green-400';
+      } else {
+        versionStatusEl.textContent = 'Failed to load versions: ' + result.error;
+        versionStatusEl.className = 'text-xs text-center mt-1 text-red-400';
+        
+        // Fallback
+        const option = document.createElement('option');
+        option.value = '1.21';
+        option.textContent = '1.21 (fallback)';
+        versionSelect.appendChild(option);
+      }
+    } catch (err) {
+      versionStatusEl.textContent = 'Error loading versions: ' + err.message;
+      versionStatusEl.className = 'text-xs text-center mt-1 text-red-400';
     }
   }
 
@@ -199,8 +273,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!currentProfile) return;
     
     if (!minecraftInstalled) {
-      // Ask user if they want to install Minecraft
-      const wantsToInstall = confirm('Minecraft is not installed. Would you like to install Minecraft 1.21?');
+      // Ask user if they want to install selected version
+      const versionSelect = document.getElementById('versionSelect');
+      const version = versionSelect.value || '1.21';
+      const wantsToInstall = confirm(`Minecraft ${version} is not installed. Would you like to install it first?`);
       if (wantsToInstall) {
         await handleInstallMinecraft();
       }
@@ -239,7 +315,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const result = await electronAPI.createServer({ version: '1.21', memory: '2G' });
     const status = document.getElementById('serverStatus');
     if (result.success) {
-      status.textContent = `Server running on port ${result.port} (PID: ${result.pid})`;
+      status.textContent = `Server running on port ${result.port}`;
       status.className = 'text-xs text-center mt-2 text-green-400';
     } else {
       status.textContent = 'Failed: ' + (result.error || '');
@@ -247,4 +323,3 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   });
 });
-

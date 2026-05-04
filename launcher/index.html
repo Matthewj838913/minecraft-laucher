@@ -79,9 +79,18 @@
         <div class="mt-3 text-xs text-white/40 font-mono break-all" id="profileUuid"></div>
       </div>
 
+      <!-- Version Selection -->
+      <div class="mt-4">
+        <label for="versionSelect" class="block text-xs font-medium text-white/70 mb-2">Select Version</label>
+        <select id="versionSelect" class="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-2 text-white text-sm focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all">
+          <option value="">Loading versions...</option>
+        </select>
+        <p id="versionStatus" class="text-xs text-center mt-1 text-white/40"></p>
+      </div>
+
       <!-- Install Minecraft Button -->
-      <button id="installMcBtn" class="w-full mt-4 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 py-2 rounded-xl font-bold transition-all transform hover:scale-[1.02] shadow-lg text-sm">
-        Install Minecraft 1.21
+      <button id="installMcBtn" class="w-full mt-2 bg-gradient-to-r from-green-600 to-emerald-700 hover:from-green-500 hover:to-emerald-600 py-2 rounded-xl font-bold transition-all transform hover:scale-[1.02] shadow-lg text-sm">
+        Install Selected Version
       </button>
 
 <!-- Play Button -->
@@ -114,4 +123,3 @@
   <script src="./renderer.js"></script>
 </body>
 </html>
-

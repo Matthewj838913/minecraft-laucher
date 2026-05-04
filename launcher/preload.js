@@ -7,6 +7,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   createServer: (config) => ipcRenderer.invoke('create-server', config),
   launchGame: (profile, mods) => ipcRenderer.invoke('launch-game', profile, mods),
   installMinecraft: (version) => ipcRenderer.invoke('install-minecraft', version),
-  checkMinecraft: () => ipcRenderer.invoke('check-minecraft')
+  checkMinecraft: () => ipcRenderer.invoke('check-minecraft'),
+  getAvailableVersions: () => ipcRenderer.invoke('get-available-versions')
 });
-

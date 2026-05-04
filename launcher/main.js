@@ -105,7 +105,7 @@ async function startMicrosoftAuth() {
       const error = url.searchParams.get('error');
 
       if (error) {
-        res.writeHead(400, { 'Content-Type': 'text/html' });
+        res.writeHead(400, {'Content-Type': 'text/html' });
         res.end(`
           <html><body style="font-family: sans-serif; text-align: center; padding: 50px;">
           <h1>Authentication Failed</h1>
@@ -209,6 +209,8 @@ async function getMicrosoftToken(code, verifier, redirectUri) {
   }
   return data;
 }
+
+// ... (rest of auth functions remain the same)
 
 async function xboxLiveAuth(msAccessToken) {
   const response = await fetch('https://user.auth.xboxlive.com/user/authenticate', {
@@ -407,7 +409,7 @@ async function launchMinecraft(profile) {
   const nativesDir = path.join(minecraftDir, 'natives', latestVersion);
   fs.ensureDirSync(nativesDir);
 
-// Extract natives if needed
+  // Extract natives if needed
   if (versionData && versionData.libraries) {
     const libsDir = path.join(minecraftDir, 'libraries');
     
@@ -429,7 +431,7 @@ async function launchMinecraft(profile) {
     }
   }
 
-// JVM arguments
+  // JVM arguments
   const jvmArgs = [
     '-Xmx2G',
     '-Xms1G',
@@ -661,7 +663,7 @@ async function installMinecraft(version = '1.21') {
             const assetUrl = `https://resources.download.minecraft.net/${hash.substring(0, 2)}/${hash}`;
             const assetRes = await fetch(assetUrl);
             if (assetRes.ok) {
-              const assetBuffer = await assetRes.arrayBuffer();
+            const assetBuffer = await assetRes.arrayBuffer();
               fs.writeFileSync(assetPath, Buffer.from(assetBuffer));
             }
           } catch (e) {
@@ -730,4 +732,45 @@ ipcMain.handle('check-minecraft', async () => {
 ipcMain.handle('create-server', async (event, config) => {
   // Stub for server creation
   return { success: true, message: 'Server created', port: 25565 };
+});
+
+// ==================== AVAILABLE VERSIONS ====================
+
+async function getAvailableVersions() {
+  try {
+    const manifestUrl = 'https://piston-meta.mojang.com/mc/game/version_manifest_v2.json';
+    const response = await fetch(manifestUrl);
+    if (!response.ok) {
+      throw new Error('Failed to fetch version manifest');
+    }
+    const manifest = await response.json();
+
+    // Get releases and snapshots, sort latest first
+    const releases = manifest.versions
+      .filter(v => v.type === 'release')
+      .sort((a, b) => new Date(b.releaseTime) - new Date(a.releaseTime))
+      .slice(0, 20); // Top 20 recent releases
+
+    const snapshots = manifest.versions
+      .filter(v => v.type === 'snapshot')
+      .sort((a, b) => new Date(b.releaseTime) - new Date(a.releaseTime))
+      .slice(0, 10); // Top 10 recent snapshots
+
+    return {
+      success: true,
+      releases: releases.map(v => ({ id: v.id, releaseTime: v.releaseTime, type: v.type })),
+      snapshots: snapshots.map(v => ({ id: v.id, releaseTime: v.releaseTime, type: v.type })),
+      latest: releases[0]?.id || '1.21'
+    };
+  } catch (err) {
+    return {
+      success: false,
+      error: err.message,
+      fallback: [{ id: '1.21', type: 'release' }]
+    };
+  }
+}
+
+ipcMain.handle('get-available-versions', async () => {
+  return await getAvailableVersions();
 });
