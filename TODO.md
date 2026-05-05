@@ -7,7 +7,7 @@
 
 ## v1.0.3 Release (per TODO-RELEASE-v1.0.3.md)
 - [x] Step 4: Create branch blackboxai/v1.0.3-download-fix
-- [ ] Step 5: \`npm run build\`
+- [x] Step 5: \`npm run build\` (dist/Minecraft Star Launcher-1.0.3.AppImage generating)
 - [ ] Step 6: gh release create v1.0.3 with assets
 
 **Progress updated after each step.**

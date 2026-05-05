@@ -1,0 +1,17 @@
+<parameter name="content"># Fix "I can't see it" - Launcher UI Visibility Issue
+
+## Information Gathered
+- Primary cause: launcher loads from empty \`website-dist/\` (per TODO-AUTH-PLAN.md)
+- Files complete: index.html/renderer.js/styles.css/preload.js/main.js
+- Likely blank screen on \`npm start\`
+
+## Steps
+- [ ] Step 1: Add debug logs to main.js (loadFile confirm, webContentsDidFinishLoad)
+- [ ] Step 2: Add visibility debug to renderer.js (console.log DOMContentLoaded)
+- [ ] Step 3: Ensure BrowserWindow: center(), focus(), show()
+- [ ] Step 4: Run \`npm start\` test UI
+- [ ] Step 5: If blank, check/fix load path
+- [ ] Step 6: Verify particles.js CDN, Tailwind styles load
+- [ ] Step 7: attempt_completion with run command
+
+**Progress updated after each step.**</parameter>
