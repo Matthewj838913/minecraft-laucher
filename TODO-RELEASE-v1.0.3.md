@@ -8,7 +8,7 @@
 - [x] Step 4: Run `npm install` (postinstall)
 - [x] Step 5: Run `npm run build` (generate dist/ for win/linux/mac)
 - [x] Step 6: Test builds (npm start, backend, auth/install/launch flow)
-- [ ] Step 7: Create Git branch `blackboxai/v1.0.3-release`, commit changes
+- [x] Step 7: Create Git branch `blackboxai/v1.0.3-release`, commit changes
 - [ ] Step 8: gh release create v1.0.3 with assets (AppImage, Windows ZIP/.exe, macOS .dmg if possible)
 - [ ] Step 9: Update all TODOs to complete
 - [ ] Complete ✅ GH release live for all platforms
