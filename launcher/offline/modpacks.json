@@ -1,0 +1,18 @@
+{
+  "modpacks": {
+    "vanilla-fabric-example": {
+      "name": "Offline Example (Fabric API only)",
+      "minecraftVersion": "1.21",
+      "loader": "fabric",
+      "files": [
+        {
+          "path": "mods/fabric-api.jar",
+          "destination": "mods"
+        }
+      ],
+      "note": "Populate launcher/offline/mods/fabric-api.jar with a Fabric API jar you already have. Launcher will copy it to .minecraft/mods offline."
+    }
+  }
+}
+
+
